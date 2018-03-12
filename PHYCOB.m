@@ -1,9 +1,5 @@
 function [sys,X0] = PHYCOB(data,Order,varargin)
-%N4SID  Estimate state-space model using a subspace method.
-%     
-%   SYS = N4SID(DATA, NX)
-%     estimates a state-space model of order NX using time- or
-%     frequency-domain data DATA. SYS is an IDSS object which 
+
 %     encapsulates an identified state-space model:
 %             dx(t) = A x(t) + B u(t) + K e(t)
 %              y(t) = C x(t) + D u(t) + e(t)
@@ -14,85 +10,9 @@ function [sys,X0] = PHYCOB(data,Order,varargin)
 %     (no feedthrough) by default except for static systems. Use the
 %     "Form", "Feedthrough" and "DisturbanceModel" name/value pairs to
 %     modify the default behavior.
-%
-%     DATA: Time domain estimation data must be specified as an IDDATA
-%     object. Frequency domain data can mean either the measured frequency
-%     response (FRF) or the frequency domain input-output signals which are
-%     related to the corresponding time domain signals via the Fourier
-%     Transform. Use an IDFRD or FRD object to specify the frequency
-%     response data and an IDDATA object with Domain = 'Frequency' for the
-%     frequency domain signals. By default, the sample time of SYS matches
-%     that of the estimation data. For estimating a continuous-time model,
-%     specify 'Ts'/0 as name-value pair, or use continuous-time frequency
-%     domain data.
-%
-%     NX: Specify order NX as a positive integer. You can also specify a
-%     vector as value of NX, as in NX = 1:15, which creates a plot from
-%     where you can choose a suitable model order. The plot shows the Hankel
-%     singular values for models of different orders. States with
-%     relatively small Hankel singular values can be safely discarded. A
-%     default choice is suggested in the plot. 
-%     You can also specify NX = 'best', as in N4SID(DATA,'best'), in which
-%     case the optimal order is chosen automatically in the 1:10 range.
-%
-%  SYS = N4SID(DATA, NX, 'Name1', Value1, 'Name2', Value2,...)
-%     specifies additional attributes of the model structure as name-value
-%     pairs. The following name-value pairs are available:
-%     'Ts':   Specify the sample time of the model. The value must be 0
-%             (default) or equal to the sample time of data (DATA.Ts). Use
-%             'Ts' to create continuous-time models, as in:
-%             SYS = N4SID(DATA,2,'Ts',0) 
-%     'Form': Specify the structure of the A, B and C matrices
-%             in some common forms:
-%                  'free': All entries of A, B, C are treated as free and
-%                          updated during estimation. Default. 
-%             'companion': Companion form of the model where the characteristic
-%                          polynomial appears in the rightmost column.
-%                 'modal': Modal decomposition form where the state matrix
-%                          A is block diagonal, each block corresponding to
-%                          a cluster of nearby modes.
-%             'canonical': A, B, and C are parameterized in an observability
-%                          canonical form, as described in [1]. 
-%    'Feedthrough': Denote presence of direct feedthrough from the input
-%             u(t) to the output y(t). Specify as a logical vector of
-%             length equal to the number of inputs (Nu). By default
-%             feedthrough is assumed to be absent (false(1,Nu)) unless the
-%             model has no states in which case it is considered to be
-%             present for all inputs (true(1,Nu)).
-%    'DisturbanceModel': Specify if the noise component of the model should
-%             be estimated or not. Set the value to one of:
-%                 'none': Noise component is not estimated. The value of
-%                         the K matrix is fixed to zero value.
-%             'estimate': The K matrix is treated as a free parameter.
-%    'InputDelay': Specify input delay as a double vector of length equal
-%             to number of inputs. In discrete-time case, delay must be
-%             specified in number of lags (multiples of DATA.Ts).
-%
-%  SYS = N4SID(DATA, NX, ... OPTIONS)
-%     specifies estimation options that configure the initial states,
-%     estimation objective, and subspace algorithm related choices to be
-%     used for estimation. Use the "n4sidOptions" command to configure
-%     OPTIONS. 
-%
-%  [SYS, X0] = N4SID(DATA, ...) 
-%    also returns the value of the initial states computed during the
-%    estimation of SYS. This value is also stored as a part of the model's
-%    estimation report. If DATA contains multiple experiments, X0 is a
-%    matrix with one column of values for each data experiment.
-%
-% Reference:
-%  [1] Lennart Ljung: System Identification - Theory For the User, Appendix
-%  4A, pp 132-134, 2nd ed, PTR Prentice Hall, Upper Saddle River, N.J., 1999.
-%
-% See also N4SIDOPTIONS, IDSS, SSEST, TFEST, PROCEST, POLYEST, IDDATA,
-% IDFRD, DYNAMICSYSTEM/CANON, IDGREY, PEM, DYNAMICSYSTEM/HSVD.
 
-%   M. Viberg, 8-13-1992, T. McKelvey, L. Ljung 9-26-1993.
-%   Rewritten; L. Ljung 8-3-2000, updated R. Singh 04/2010.
 
-%  Copyright 1986-2016 The MathWorks, Inc.
-
-% Note: n4sid(data, model) is undocumented; it provides meta data but no
+% the PHYCOB MODEL IS derived from n4sid(data, model) which is undocumented; it provides meta data but no
 % parameter specs.
 
 narginchk(1,Inf)
