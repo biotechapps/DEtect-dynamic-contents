@@ -52,19 +52,19 @@ pred22 = round(yppp.OutputData);
 
  [peak, locs] = findpeaks(SCR,'minpeakdistance',15);
             m = length(locs);
-               emotn1 = strmatch('Stressed',PP12.Affectstate(locs(1:m)));
-             emotn2 = strmatch('Relaxed',PP12.Affectstate(locs(1:m)));    
-            if size(emotn2) == [0,1];
-    emotn2 = 1
+               emotion1 = strmatch('Stressed',PP12.Affectstate(locs(1:m)));
+             emotion2 = strmatch('Relaxed',PP12.Affectstate(locs(1:m)));    
+            if size(emotion2) == [0,1];
+    emotion2 = 1
             else
-    emotn2 = emotn2
+    emotion2 = emotion2
             end
          
-            X = PP12.MappedFixationPointX(locs(emotn1));
-            Y = PP12.MappedFixationPointY(locs(emotn1));
+            X = PP12.MappedFixationPointX(locs(emotion1));
+            Y = PP12.MappedFixationPointY(locs(emotion1));
             
-           XX =PP12.MappedFixationPointX(locs(emotn2));
-          YY = PP12.MappedFixationPointY(locs(emotn2));                          
+           XX =PP12.MappedFixationPointX(locs(emotion2));
+          YY = PP12.MappedFixationPointY(locs(emotion2));                          
                
 
 
